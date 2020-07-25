@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 import firebase from 'firebase';
 
@@ -23,9 +23,18 @@ class HomeScreen extends Component {
   }
 
   // unsubcribe from componentDidMount to avoid memory leakege
-
-  componentWillMount() {
+  componentWillUnmount() {
     this.unsubscribeAuth();
+  }
+
+  // signout method
+  userSignOut() {
+    firebase
+      .auth()
+      .signOut()
+      .catch((err) => {
+        Alert.alert(err, message);
+      });
   }
 
   render() {
@@ -34,7 +43,10 @@ class HomeScreen extends Component {
         <Text style={{justifyContent: 'center'}}>
           you are loged in as {this.state.email}
         </Text>
-        <Button mode="contained" style={{marginTop: 10, borderRadius: 30}}>
+        <Button
+          mode="contained"
+          style={{marginTop: 10, borderRadius: 30}}
+          onPress={() => this.userSignOut()}>
           <Text style={{fontSize: 20}}>LogOut</Text>
         </Button>
       </View>

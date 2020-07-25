@@ -15,7 +15,7 @@ class LoadingScreen extends Component {
 
   // unsubcribe from componentDidMount to avoid memory leakege
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.unsubscribeAuth();
   }
 

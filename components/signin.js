@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   KeyboardAvoidingView,
   Image,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import {Appbar, TextInput, Button} from 'react-native-paper';
+import {TextInput, Button} from 'react-native-paper';
+import firebase from 'firebase';
 
 const screen_Width = Dimensions.get('window').width;
 
@@ -17,6 +18,21 @@ class SigninScreen extends Component {
     email: '',
     password: '',
   };
+
+  // firebase signin method
+
+  userSignIn(mail, pass) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(mail, pass)
+      .then(() => {
+        this.props.navigation.replace('home');
+      })
+      .catch((err) => {
+        Alert.alert(err.message);
+      });
+  }
+
   render() {
     return (
       <KeyboardAvoidingView>
@@ -44,7 +60,14 @@ class SigninScreen extends Component {
                 this.setState({password: text});
               }}
             />
-            <Button mode="contained" style={{marginTop: 10, borderRadius: 30}}>
+
+            {/* signin method called in this button */}
+            <Button
+              mode="contained"
+              style={{marginTop: 10, borderRadius: 30}}
+              onPress={() =>
+                this.userSignIn(this.state.email, this.state.password)
+              }>
               <Text style={{fontSize: 20}}>Sign In</Text>
             </Button>
 

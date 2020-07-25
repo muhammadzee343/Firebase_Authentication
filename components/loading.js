@@ -4,13 +4,19 @@ import firebase from 'firebase';
 
 class LoadingScreen extends Component {
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
+    this.unsubscribeAuth = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.navigation.navigate('home');
       } else {
         this.props.navigation.navigate('SignIn');
       }
     });
+  }
+
+  // unsubcribe from componentDidMount to avoid memory leakege
+
+  componentWillMount() {
+    this.unsubscribeAuth();
   }
 
   render() {

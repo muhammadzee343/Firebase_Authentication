@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   KeyboardAvoidingView,
   Image,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Appbar, TextInput, Button} from 'react-native-paper';
+import firebase from 'firebase';
 
 const screen_Width = Dimensions.get('window').width;
 
@@ -17,6 +18,21 @@ class SignupScreen extends Component {
     email: '',
     password: '',
   };
+
+  // firebase signup method
+
+  usersignup(mail, pass) {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(mail, pass)
+      .then(() => {
+        this.props.navigation.replace('home');
+      })
+      .catch((err) => {
+        Alert.alert(err.message);
+      });
+  }
+
   render() {
     return (
       <KeyboardAvoidingView>
@@ -44,7 +60,14 @@ class SignupScreen extends Component {
                 this.setState({password: text});
               }}
             />
-            <Button mode="contained" style={{marginTop: 10, borderRadius: 30}}>
+
+            {/* signup method called in this button */}
+            <Button
+              mode="contained"
+              style={{marginTop: 10, borderRadius: 30}}
+              onPress={() =>
+                this.usersignup(this.state.email, this.state.password)
+              }>
               <Text style={{fontSize: 20}}>Sign Up</Text>
             </Button>
 
@@ -54,20 +77,6 @@ class SignupScreen extends Component {
               onPress={() => this.props.navigation.navigate('SignIn')}>
               <Text style={{textAlign: 'center', marginTop: 5}}>
                 already have an account?
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('loading')}>
-              <Text style={{textAlign: 'center', marginTop: 15}}>
-                goto loading
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('home')}>
-              <Text style={{textAlign: 'center', marginTop: 15}}>
-                goto home
               </Text>
             </TouchableOpacity>
           </View>

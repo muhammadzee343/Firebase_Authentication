@@ -7,7 +7,7 @@ import sinup from './components/signup';
 import sinin from './components/signin';
 import LoadingScreen from './components/loading';
 import HomeScreen from './components/Home';
-
+import {firebaseConfig} from './config';
 const screen_Width = Dimensions.get('window').width;
 
 function SignUpScreen({navigation}) {
@@ -62,9 +62,9 @@ class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="up">
-          <Stack.Screen name="SignUp" component={sinup} />
+        <Stack.Navigator initialRouteName="sinin">
           <Stack.Screen name="SignIn" component={sinin} />
+          <Stack.Screen name="SignUp" component={sinup} />
           <Stack.Screen name="loading" component={LoadingScreen} />
           <Stack.Screen name="home" component={HomeScreen} />
         </Stack.Navigator>

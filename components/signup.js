@@ -56,6 +56,20 @@ class SignupScreen extends Component {
                 already have an account?
               </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('loading')}>
+              <Text style={{textAlign: 'center', marginTop: 15}}>
+                goto loading
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('home')}>
+              <Text style={{textAlign: 'center', marginTop: 15}}>
+                goto home
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>

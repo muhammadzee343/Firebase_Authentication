@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {TextInput, Button, Appbar} from 'react-native-paper';
 import sinup from './components/signup';
 import sinin from './components/signin';
+import LoadingScreen from './components/loading';
+import HomeScreen from './components/Home';
 
 const screen_Width = Dimensions.get('window').width;
 
@@ -63,6 +65,8 @@ class App extends Component {
         <Stack.Navigator initialRouteName="up">
           <Stack.Screen name="SignUp" component={sinup} />
           <Stack.Screen name="SignIn" component={sinin} />
+          <Stack.Screen name="loading" component={LoadingScreen} />
+          <Stack.Screen name="home" component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
